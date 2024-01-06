@@ -57,9 +57,9 @@ services:
 
 secrets:
   db_root_password:
-    file: ${SECRETS_LOCATION:?No secrets folder configured}/db_root_password.txt
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${DB_ROOT_PASSWORD_FILE:?No db root password file configured}
   db_password:
-    file: ${SECRETS_LOCATION:?No secrets folder configured}/db_password.txt
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${DB_PASSWORD_FILE:?No db password file configured}
 
 volumes:
   npm-db:
