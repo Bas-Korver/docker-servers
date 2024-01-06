@@ -30,7 +30,7 @@ services:
       - db_password
     volumes:
       - type: bind
-        source: ${APPDATA_LOCATION:?No appdata folder configured}/ngin_proxy_manager/data
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/nginx_proxy_manager/data
         target: /data
       
       - type: bind
