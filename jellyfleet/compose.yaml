@@ -1,5 +1,4 @@
 ## Services:
-# Nginx proxy manager
 
 # Jellyfin
 # Jellyseerr
@@ -22,25 +21,6 @@ version: "3.8"
 name: jellyfleet
 
 services:
-  # proxy-manager:
-  #  image: jc21/nginx-proxy-manager:2
-  #  restart: unless-stopped
-  #  ports:            
-  #    - target: 80
-  #      published: 80
-  #      protocol: tcp
-  #      mode: host
-       
-  #    - target: 443
-  #      published: 443
-  #      protocol: tcp
-  #      mode: host
-       
-  #    - target: 81
-  #      published: 81
-  #      protocol: tcp
-  #      mode: host
-
   jellyfin:
     image: ghcr.io/hotio/jellyfin:release-10.8.13-1
     restart: unless-stopped
@@ -78,7 +58,7 @@ services:
       - TZ=Europe/Amsterdam
     volumes:
       - type: bind
-        source: ${APPDATA_LOCATION:?error}/jellyseerr
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/jellyseerr
         target: /config
     networks:
       - media-network
