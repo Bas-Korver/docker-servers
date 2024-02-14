@@ -9,13 +9,14 @@
 # Readarr
 
 # Prowlarr
+# Autobrr
 
 # Tdarr
 # Bazarr
 
 # Qbittorrent
 
-# Gluetun
+# Gluetun, needed?
 
 version: "3.8"
 name: jellyfleet
