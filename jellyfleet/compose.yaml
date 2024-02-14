@@ -34,12 +34,12 @@ services:
       - type: bind
         source: ${APPDATA_LOCATION:?error}/jellyfin
         target: /config
-
+        bind:
+          create_host_path: true
       - type: tmpfs
-        target: /cache
-    
-      - type: volume
-        source: media
+        target: /cache    
+      - type: bind
+        source: ${MEDIA_LOCATION:?error}
         target: /media    
     networks:
       - media-network
@@ -61,6 +61,8 @@ services:
       - type: bind
         source: ${APPDATA_LOCATION:?No appdata folder configured}/jellyseerr
         target: /config
+        bind:
+          create_host_path: true
     networks:
       - media-network
     ports:
@@ -81,6 +83,8 @@ services:
       - type: bind
         source: ${APPDATA_LOCATION:?error}/radarr
         target: /config
+        bind:
+          create_host_path: true
       - type: volume
         source: media
         target: /media
@@ -104,6 +108,8 @@ services:
       - type: bind
         source: ${APPDATA_LOCATION:?error}/sonarr
         target: /config
+        bind:
+          create_host_path: true
       - type: volume
         source: media
         target: /media
@@ -127,6 +133,8 @@ services:
       - type: bind
         source: ${APPDATA_LOCATION:?error}/lidarr
         target: /config
+        bind:
+          create_host_path: true
       - type: volume
         source: media
         target: /media
@@ -151,6 +159,8 @@ services:
       - type: bind
         source: ${APPDATA_LOCATION:?error}/readarr
         target: /config
+        bind:
+          create_host_path: true
       - type: volume
         source: media
         target: /media
@@ -175,6 +185,8 @@ services:
       - type: bind
         source: ${APPDATA_LOCATION:?error}/qbittorrent
         target: /config
+        bind:
+          create_host_path: true
       - type: volume
         source: media
         target: /media
