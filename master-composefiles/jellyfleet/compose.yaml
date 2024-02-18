@@ -1,0 +1,36 @@
+## Services:
+
+# Jellyfin 1101
+# Jellyseerr 1102
+
+# Radarr 1103
+# Sonarr 1104
+# Lidarr 1105
+# Readarr 1106
+
+# Prowlarr 1107
+# Autobrr 1108
+
+# Bazarr 1109
+
+# Qbittorrent 1110
+
+version: "3.8"
+name: jellyfleet
+
+include:
+  - ../jellyfin/compose.yaml
+  - ../jellyseerr/compose.yaml
+  - ../radarr/compose.yaml
+  - ../sonarr/compose.yaml
+  - ../lidarr/compose.yaml
+  - ../readarr/compose.yaml
+  - ../prowlarr/compose.yaml
+  - ../autobrr/compose.yaml
+  - ../bazarr/compose.yaml
+  - ../qbittorrent/compose.yaml
+  - ../gluetun/compose.yaml
+
+networks:
+  media-network:
+    driver: bridge

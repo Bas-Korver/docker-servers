@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  prowlarr:
+    image: ghcr.io/hotio/prowlarr:release-1.13.3.4273
+    restart: unless-stopped
+    environment:
+      - PUID=1107
+      - PGID=1001
+      - UMASK=002
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/prowlarr
+        target: /config
+        bind:
+          create_host_path: true
+    networks:
+      - media-network
+    ports:
+      - target: 9696
+        published: 9696
+        protocol: tcp
+        mode: host

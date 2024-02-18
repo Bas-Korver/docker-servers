@@ -1,0 +1,7 @@
+include:
+  - ./jellyfin/compose.yaml
+  - ./jellyseerr/compose.yaml
+
+networks:
+  media-network:
+    driver: bridge

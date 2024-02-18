@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  autobrr:
+    image: ghcr.io/autobrr/autobrr:v1.38
+    restart: unless-stopped
+    environment:
+      - PUID=1108
+      - PGID=1001
+      - UMASK=002
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/autobrr
+        target: /config
+        bind:
+          create_host_path: true
+    networks:
+      - media-network
+    ports:
+      - target: 7474
+        published: 7474
+        protocol: tcp
+        mode: host

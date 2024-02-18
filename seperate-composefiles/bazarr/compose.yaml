@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  bazarr:
+    image: ghcr.io/hotio/bazarr:release-1.4.1
+    restart: unless-stopped
+    environment:
+      - PUID=1109
+      - PGID=1001
+      - UMASK=002
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/bazarr
+        target: /config
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ${DATA_LOCATION:?No data directory configured}
+        target: /data/media
+        bind:
+          create_host_path: true
+    networks:
+      - media-network
+    ports:
+      - target: 6767
+        published: 6767
+        protocol: tcp
+        mode: host
