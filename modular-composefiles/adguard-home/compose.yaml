@@ -1,0 +1,51 @@
+
+services:
+  adguard-home:
+    image: adguard/adguardhome:v0.107.44
+    container_name: adguard-home
+    restart: unless-stopped
+    ports:
+      # - name: dns
+      - target: 53
+        published: 53
+        protocol: tcp
+        mode: host
+
+      # - name: dns-udp
+      - target: 53
+        published: 53
+        protocol: udp
+        mode: host
+
+      # - name: dashboard-http
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+
+      # - name: dashboard-https
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+
+      # - name: dns-https
+      - target: 443
+        published: 443
+        protocol: udp
+        mode: host
+
+      # - name: configuration-port
+      - target: 3000
+        published: 3000
+        protocol: tcp
+        mode: host
+
+    volumes:
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/adguard/workdir
+        target: /opt/adguardhome/work
+
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/adguard/confdir
+        target: /opt/adguardhome/conf

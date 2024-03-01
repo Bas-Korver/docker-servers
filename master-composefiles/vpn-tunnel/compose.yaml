@@ -1,0 +1,10 @@
+version: '3.8'
+
+include:
+  - ../../modular-composefiles/gluetun/compose.yaml
+
+secrets:
+  protonvpn_user:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${PROTON_VPN_USER_FILE:?No proton vpn user file configured}
+  protonvpn_password:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${PROTON_VPN_PASSWORD_FILE:?No proton vpn password file configured}

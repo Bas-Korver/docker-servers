@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  pihole:
+    image: pihole/pihole:latest
+    restart: unless-stopped
+    environment:
+      WEBPASSWORD: 'nx7#jD:cor.C#(`p5'
+      VIRTUAL_HOST: "pihole"
+      TZ: 'Europe/Amsterdam'
+    volumes:
+      - type: bind
+        source: ${PIHOLE_DATA:?No pihole data directory configured}
+        target: /etc/pihole
+        read_only: true
+      - type: bind
+        source: ${DNSMASQ_DATA:?No dnsmasq data directory configured}
+        target: /etc/dnsmasq.d
+        read_only: true
+    ports:
+      - target: 53
+        published: 53
+        protocol: tcp
+        mode: host
+      - target: 53
+        published: 53
+        protocol: udp
+        mode: host
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host

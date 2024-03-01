@@ -1,0 +1,22 @@
+## Services:
+
+# nginx proxy manager
+# mariadb
+
+# authentik
+# fail2ban
+
+version: '3.8'
+
+include:
+  - ../../modular-composefiles/nginx_proxy_manager/compose.yaml	
+
+secrets:
+  db_root_password:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${DB_ROOT_PASSWORD_FILE:?No db root password file configured}
+  db_password:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${DB_PASSWORD_FILE:?No db password file configured}
+
+volumes:
+  npm-db:
+    driver: local
