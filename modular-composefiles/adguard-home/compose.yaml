@@ -3,6 +3,19 @@ services:
   adguard-home:
     image: adguard/adguardhome:v0.107.44
     restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/adguard/workdir
+        target: /opt/adguardhome/work
+        bind:
+          create_host_path: true
+
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/adguard/confdir
+        target: /opt/adguardhome/conf
+        bind:
+          create_host_path: true
+    network_mode: "host"
     ports:
       # - name: dns-tcp
       - target: 53
@@ -33,16 +46,3 @@ services:
         published: 6060
         protocol: tcp
         mode: host
-
-    volumes:
-      - type: bind
-        source: ${APPDATA_LOCATION:?No appdata directory configured}/adguard/workdir
-        target: /opt/adguardhome/work
-        bind:
-          create_host_path: true
-
-      - type: bind
-        source: ${APPDATA_LOCATION:?No appdata directory configured}/adguard/confdir
-        target: /opt/adguardhome/conf
-        bind:
-          create_host_path: true
