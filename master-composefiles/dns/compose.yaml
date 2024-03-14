@@ -1,0 +1,5 @@
+version: '3.8'
+name: dns-stack
+
+include:
+  - ../../modular-composefiles/adguard-home/compose.yaml

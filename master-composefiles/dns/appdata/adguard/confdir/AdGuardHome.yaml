@@ -6,12 +6,12 @@ http:
   session_ttl: 720h
 users:
   - name: admin
-    password: $2a$10$mr/EkTt6CqV789lcj1Pt4OMLBOd4PhYVQUb5uK.OtsSzBY.f7Vl7a
+    password: $2a$10$Vhf9YqRdHVpjj5huaZZp7uzcAkFbYpTpQCQhi.imY69Z0llgZ4goG
 auth_attempts: 5
 block_auth_min: 15
 http_proxy: ""
-language: en
-theme: dark
+language: ""
+theme: auto
 dns:
   bind_hosts:
     - 0.0.0.0
