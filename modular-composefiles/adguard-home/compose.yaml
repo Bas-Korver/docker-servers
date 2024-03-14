@@ -2,7 +2,6 @@
 services:
   adguard-home:
     image: adguard/adguardhome:v0.107.44
-    container_name: adguard-home
     restart: unless-stopped
     ports:
       # - name: dns-tcp
