@@ -4,8 +4,8 @@ services:
     restart: unless-stopped
     ports:
       # - name: RNDC
-      - target: ${BIND9_RECURSIVE_RNDC_PORT:-954}
+      - target: 953
         host_ip: 127.0.0.1
-        published: 953
+        published: ${BIND9_RECURSIVE_RNDC_PORT:-954}
         protocol: tcp
         mode: host
