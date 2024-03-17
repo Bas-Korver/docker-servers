@@ -1,5 +1,5 @@
 services:
-  bind9-authoritive:
+  bind9-authoritative:
     image: internetsystemsconsortium/bind9:9.18
     restart: unless-stopped
     volumes:
@@ -24,9 +24,19 @@ services:
         bind:
           create_host_path: true
     ports:
+      # - name: dns-tcp
+      - target: 53
+        published: ${BIND9_AUTHORITATIVE_DNS_PORT:-54}
+        protocol: tcp
+        mode: host
+      # - name: dns-udp
+      - target: 53
+        published: ${BIND9_AUTHORITATIVE_DNS_PORT:-54}
+        protocol: udp
+        mode: host
       # - name: RNDC
       - target: 953
         host_ip: 127.0.0.1
-        published: ${BIND9_AUTHORITIVE_RNDC_PORT:-953}
+        published: ${BIND9_AUTHORITATIVE_RNDC_PORT:-953}
         protocol: tcp
         mode: host

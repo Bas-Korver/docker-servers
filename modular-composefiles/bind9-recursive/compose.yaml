@@ -3,6 +3,16 @@ services:
     image: internetsystemsconsortium/bind9:9.18
     restart: unless-stopped
     ports:
+      # - name: dns-tcp
+      - target: 53
+        published: ${BIND9_RECURSIVE_DNS_PORT:-55}
+        protocol: tcp
+        mode: host
+      # - name: dns-udp
+      - target: 53
+        published: ${BIND9_RECURSIVE_DNS_PORT:-55}
+        protocol: udp
+        mode: host
       # - name: RNDC
       - target: 953
         host_ip: 127.0.0.1
