@@ -1,0 +1,32 @@
+services:
+  bind9-authoritive:
+    image: internetsystemsconsortium/bind9:9.18
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/bind9-authoritive/confdir
+        target: /etc/bind
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/bind9-authoritive/workdir
+        target: /var/cache/bind
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/bind9-authoritive/libdir
+        target: /var/lib/bind
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata directory configured}/bind9-authoritive/logdir
+        target: /var/log
+        bind:
+          create_host_path: true
+    ports:
+      # - name: RNDC
+      - target: ${BIND9_AUTHORITIVE_RNDC_PORT:-953}
+        host_ip: 127.0.0.1
+        published: 953
+        protocol: tcp
+        mode: host

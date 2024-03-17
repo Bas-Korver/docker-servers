@@ -1,0 +1,11 @@
+services:
+  bind9-recursive:
+    image: internetsystemsconsortium/bind9:9.18
+    restart: unless-stopped
+    ports:
+      # - name: RNDC
+      - target: ${BIND9_RECURSIVE_RNDC_PORT:-954}
+        host_ip: 127.0.0.1
+        published: 953
+        protocol: tcp
+        mode: host

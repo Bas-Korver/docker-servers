@@ -3,3 +3,5 @@ name: dns-stack
 
 include:
   - ../../modular-composefiles/adguard-home/compose.yaml
+  - ../../modular-composefiles/bind9-authoritative/compose.yaml
+  - ../../modular-composefiles/bind9-recursive/compose.yaml
