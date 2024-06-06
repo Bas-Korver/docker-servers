@@ -30,8 +30,6 @@ services:
         source: db
         target: /var/lib/mysqld
     secrets:
-      - source: mysql_user
-        target: user
       - source: mysql_password
         target: password
 
@@ -40,7 +38,5 @@ volumes:
   db:
 
 secrets:
-  mysql_user:
-    file: ${SECRETS_LOCATION:?No secrets folder configured}/${MYSQL_USER_FILE:?No mysql user file configured}
   mqsql_password:
     file: ${SECRETS_LOCATION:?No secrets folder configured}/${MYSQL_PASSWORD_FILE:?No mysql password file configured}
