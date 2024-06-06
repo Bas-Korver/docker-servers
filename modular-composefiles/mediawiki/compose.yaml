@@ -38,5 +38,5 @@ volumes:
   db:
 
 secrets:
-  mqsql_password:
+  mysql_password:
     file: ${SECRETS_LOCATION:?No secrets folder configured}/${MYSQL_PASSWORD_FILE:?No mysql password file configured}
