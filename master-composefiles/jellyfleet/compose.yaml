@@ -1,4 +1,3 @@
-version: '3.8'
 name: jellyfleet
 
 include:
@@ -13,6 +12,3 @@ include:
   - ../../modular-composefiles/bazarr/compose.yaml
   - ../../modular-composefiles/qbittorrent/compose.yaml
 
-networks:
-  media-network:
-    driver: bridge

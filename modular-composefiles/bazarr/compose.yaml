@@ -10,20 +10,19 @@ services:
       - UMASK=002
       - TZ=Europe/Amsterdam
     volumes:
-      - type: bind
-        source: ${APPDATA_LOCATION:?No appdata directory configured}/bazarr
+      - type: volume
+        source: bazarr-appdata
         target: /config
-        bind:
-          create_host_path: true
       - type: bind
         source: ${DATA_LOCATION:?No data directory configured}
         target: /data/media
         bind:
           create_host_path: true
-    networks:
-      - media-network
     ports:
       - target: 6767
         published: 6767
         protocol: tcp
         mode: host
+
+volumes:
+  bazarr-appdata:

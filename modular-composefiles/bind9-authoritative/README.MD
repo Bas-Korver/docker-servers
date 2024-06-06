@@ -5,4 +5,4 @@
 
 ## Variables
 `APPDATA_LOCATION`: Where the different type of files are stored. <br>
-`BIND9_AUTHORITIVE_RNDC_PORT`: The port for the RNDC server, default is 953 <br>
+`BIND9_AUTHORITATIVE_RNDC_PORT`: The port for the RNDC server, default is 953 <br>

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   radarr:
     image: ghcr.io/hotio/radarr:release-5.3.6.8612
@@ -10,20 +8,19 @@ services:
       - UMASK=002
       - TZ=Europe/Amsterdam
     volumes:
-      - type: bind
-        source: ${APPDATA_LOCATION:?No appdata directory configured}/radarr
+      - type: volume
+        source: radarr-appdata
         target: /config
-        bind:
-          create_host_path: true
       - type: bind
         source: ${DATA_LOCATION:?No data directory configured}
         target: /data
         bind:
           create_host_path: true
-    networks:
-      - media-network
     ports:
       - target: 7878
         published: 7878
         protocol: tcp
         mode: host
+
+volumes:
+  radarr-appdata:

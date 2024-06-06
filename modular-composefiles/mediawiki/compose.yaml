@@ -1,0 +1,46 @@
+services:
+  mediawiki:
+    image: mediawiki:1.41
+    restart: always
+    ports:
+      - name: web-ui
+        target: 80
+        published: 8080
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: volume
+        source: images
+        target: /var/www/html/images
+      # After initial setup, download LocalSettings.php to the same directory as
+      # this yaml and uncomment the following line and use compose to restart
+      # the mediawiki service
+      # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+
+  database:
+    image: mariadb:11.4.2-noble
+    restart: always
+    environment:
+      MYSQL_DATABASE: my_wiki
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD_FILE: /run/secrets/password
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - type: volume
+        source: db
+        target: /var/lib/mysqld
+    secrets:
+      - source: mysql_user
+        target: user
+      - source: mysql_password
+        target: password
+
+volumes:
+  images:
+  db:
+
+secrets:
+  mysql_user:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${MYSQL_USER_FILE:?No mysql user file configured}
+  mqsql_password:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${MYSQL_PASSWORD_FILE:?No mysql password file configured}
