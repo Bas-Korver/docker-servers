@@ -24,7 +24,7 @@ services:
       MYSQL_DATABASE: my_wiki
       MYSQL_USER: wikiuser
       MYSQL_PASSWORD_FILE: /run/secrets/password
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root_password
     volumes:
       - type: volume
         source: db
@@ -32,6 +32,8 @@ services:
     secrets:
       - source: mysql_password
         target: password
+      - source: mysql_root_password
+        target: root_password
 
 volumes:
   images:
@@ -40,3 +42,5 @@ volumes:
 secrets:
   mysql_password:
     file: ${SECRETS_LOCATION:?No secrets folder configured}/${MYSQL_PASSWORD_FILE:?No mysql password file configured}
+  mysql_root_password:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${MYSQL_ROOT_PASSWORD_FILE:?No mysql root password file configured}
