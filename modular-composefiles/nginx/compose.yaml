@@ -1,0 +1,57 @@
+services:
+  nginx:
+    image: nginx:1.26.1-bookworm-otel
+    volumes:
+      # - type: bind
+      #   source: ${APPDATA_LOCATION:?No appdata folder configured}/nginx/nginx.conf
+      #   target: /etc/nginx/nginx.conf
+      #   bind:
+      #     create_host_path: true
+      # - type: bind
+      #   source: ${APPDATA_LOCATION:?No appdata folder configured}/nginx/conf.d
+      #   target: /etc/nginx/conf.d
+      #   bind:
+      #     create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/certbot/etc
+        target: /etc/letsencrypt
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/certbot/var/lib
+        target: /var/lib/letsencrypt
+        bind:
+          create_host_path: true
+    ports:
+      - name: http
+        target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - name: https
+        target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+  
+  certbot:
+    image: certbot/dns-cloudflare:v2.11.0
+    command: ["certonly", "--non-interactive", "--agree-tos", "--email", "${CERTBOT_EMAIL:?No email configured}", "--dns-cloudflare", "--dns-cloudflare-credentials", "/run/secrets/apikey", "--dns-cloudflare-propagation-seconds", "10", "-d", "${CERTBOT_DOMAIN:?No domain configured}"]
+    volumes:
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/certbot/etc
+        target: /etc/letsencrypt
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/certbot/var/lib
+        target: /var/lib/letsencrypt
+        bind:
+          create_host_path: true
+    secrets:
+      - source: cloudflare_credentials
+        target: apikey
+
+secrets:
+  cloudflare_credentials:
+    file: ${SECRETS_LOCATION:?No secrets folder configured}/${CLOUDFLARE_CREDENTIAL_FILE:?No cloudflare credential file configured}
