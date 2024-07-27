@@ -1,17 +1,17 @@
 services:
   nginx:
-    image: nginx:1.26.1-bookworm-otel
+    image: nginx:mainline-otel
     volumes:
-      # - type: bind
-      #   source: ${APPDATA_LOCATION:?No appdata folder configured}/nginx/nginx.conf
-      #   target: /etc/nginx/nginx.conf
-      #   bind:
-      #     create_host_path: true
-      # - type: bind
-      #   source: ${APPDATA_LOCATION:?No appdata folder configured}/nginx/conf.d
-      #   target: /etc/nginx/conf.d
-      #   bind:
-      #     create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ${APPDATA_LOCATION:?No appdata folder configured}/nginx/conf.d
+        target: /etc/nginx/conf.d
+        bind:
+          create_host_path: true
       - type: bind
         source: ${APPDATA_LOCATION:?No appdata folder configured}/certbot/etc
         target: /etc/letsencrypt
@@ -33,9 +33,12 @@ services:
         published: 443
         protocol: tcp
         mode: host
-    networks:
-      - nginx
-  
+      - name: quic
+        target: 443
+        published: 443
+        protocol: udp
+        mode: host
+
   certbot:
     image: certbot/dns-cloudflare:v2.11.0
     command: ["certonly", "--non-interactive", "--agree-tos", "--email", "${CERTBOT_EMAIL:?No email configured}", "--dns-cloudflare", "--dns-cloudflare-credentials", "/run/secrets/apikey", "--dns-cloudflare-propagation-seconds", "10", "-d", "${CERTBOT_DOMAIN:?No domain configured}"]
