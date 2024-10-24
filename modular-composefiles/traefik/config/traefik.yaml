@@ -36,6 +36,8 @@ entryPoints:
         domains:
           - main: "korver.it"
             sans: "*.korver.it"
+          - main: "xn--krver-jua.it"
+            sans: "*.xn--krver-jua.it"
     http3: {}
 
 providers:
